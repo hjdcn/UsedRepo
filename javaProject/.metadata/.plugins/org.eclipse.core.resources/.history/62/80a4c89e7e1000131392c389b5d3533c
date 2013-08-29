@@ -297,7 +297,7 @@ class Info {
 	{
 		return this.age;
 	}
-	synchronized void get() {
+	void get() {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

@@ -179,193 +179,102 @@ package thread;
 /*
  * 设计一个公共类来存储和交换信息
  */
-//class Info {
-//	private String name="hj";
-//	private int age=20;
-//	private String [][] input=new String[10][];
-//	/*
-//	 * 初始化二维数组
-//	 * String [][] input = {{},{},{},{},{},{},{}};
-//	 */
-//	
-////	public static void main(String []a ){
-////		
-////		Info info = new Info();
-////		for(int i=0;i<10;i++)
-////		{
-////			info.input[i]=new String[(int) (Math.random()*100)];
-////			System.out.println(info.input[i].length);
-////		}
-////	}
-//	void setName(String name)
-//	{
-//		this.name=name;
-//	}
-//	String getName ()
-//	{
-//		return this.name;
-//	}
-//	int  getAge()
-//	{
-//		return this.age;
-//	}
-//	void setAge(int age)
-//	{
-//		this.age=age;
-//	}
-//	static class producer implements Runnable{
-//		Info info = new Info();
-//		producer (Info info)
-//		{
-//			this.info=info;
-//		}
-//		boolean flag=true;
-//		public void run(){
-//			for(int i=1;i<=20;i++)
-//			{
-//				if(flag){
-//					flag=false;
-//					this.info.setAge(100);
-//					try{
-//	                    Thread.sleep(100);
-//	                }catch (Exception e) {
-//	                    e.printStackTrace();
-//	                }
-//					this.info.setName("jy");
-//				}else
-//				{
-//					flag=true;
-//					this.info.setAge(20);
-//					try{
-//	                    Thread.sleep(100);
-//	                }catch (Exception e) {
-//	                    e.printStackTrace();
-//	                }
-//					this.info.setName("hj");
-//				}
-//			}
-//		}
-//	}
-//	static class customer implements Runnable{
-//		Info info =new Info ();
-//		customer(Info info )
-//		{
-//			this.info=info;
-//		}
-//		public void run(){
-//			for(int i=1;i<=20;i++)
-//			{
-//				try{
-//                    Thread.sleep(100);
-//                }catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//				System.out.println(this.info.age+"<-->"+this.info.name);
-//			}
-//		}
-//	}
-//	
-//	public static void main(String [] a)
-//	{
-//		Info info =new Info();
-//		producer p= new producer(info);
-//		customer c = new customer(info);
-//		new Thread(p).start();
-//		new Thread(c).start();
-//	}
-//}
-
 class Info {
-	private String name="";
-	private int age=0;
+	private String name="hj";
+	private int age=20;
+	private String [][] input=new String[10][];
+	/*
+	 * 初始化二维数组
+	 * String [][] input = {{},{},{},{},{},{},{}};
+	 */
 	
-	synchronized void set (String name,int age) {
-		this.age=age;
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//	public static void main(String []a ){
+//		
+//		Info info = new Info();
+//		for(int i=0;i<10;i++)
+//		{
+//			info.input[i]=new String[(int) (Math.random()*100)];
+//			System.out.println(info.input[i].length);
+//		}
+//	}
+	void setName(String name)
+	{
 		this.name=name;
 	}
-	String getName()
+	String getName ()
 	{
 		return this.name;
 	}
-	int getAge()
+	int  getAge()
 	{
 		return this.age;
 	}
-	synchronized void get() {
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(this.getAge()+"<--->"+this.getName());
-		
+	void setAge(int age)
+	{
+		this.age=age;
 	}
 	static class producer implements Runnable{
-		Info info=null;
-		producer(Info info)
+		Info info = new Info();
+		producer (Info info)
 		{
 			this.info=info;
 		}
+		boolean flag=true;
 		public void run(){
-			boolean flag=true;
-			for(int i=1;i<=100;i++){
+			for(int i=1;i<=20;i++)
+			{
 				if(flag){
-					this.info.set("hj", 100);
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
 					flag=false;
+					this.info.setAge(100);
+					try{
+	                    Thread.sleep(100);
+	                }catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+					this.info.setName("jy");
 				}else
 				{
-					this.info.set("jy", 20);
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
 					flag=true;
+					this.info.setAge(20);
+					try{
+	                    Thread.sleep(100);
+	                }catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+					this.info.setName("hj");
 				}
-				
 			}
 		}
 	}
 	static class customer implements Runnable{
-		Info info=null;
-		customer(Info info)
+		Info info =new Info ();
+		customer(Info info )
 		{
 			this.info=info;
 		}
 		public void run(){
-			for(int i=1;i<=100;i++){
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-			this.info.get();
+			for(int i=1;i<=20;i++)
+			{
+				try{
+                    Thread.sleep(100);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+				System.out.println(this.info.age+"<-->"+this.info.name);
 			}
 		}
 	}
-	public static void main(String []a){
-		Info t =new Info ();
-		producer p= new producer(t);
-		customer c= new customer(t);
-		new Thread(p,"a").start();
-		new Thread(c,"b").start();
+	
+	public static void main(String [] a)
+	{
+		Info info =new Info();
+		producer p= new producer(info);
+		customer c = new customer(info);
+		new Thread(p).start();
+		new Thread(c).start();
 	}
 }
+
 
 
 
