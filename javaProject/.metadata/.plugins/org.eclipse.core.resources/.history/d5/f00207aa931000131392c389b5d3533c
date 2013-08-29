@@ -278,20 +278,9 @@ package thread;
 class Info {
 	private String name="";
 	private int age=0;
-	private boolean flag=true;
+	
 	synchronized void set (String name,int age) {
-		if (!flag){
-			try {
-				super.wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		this.age=age;
-		/*
-		 * 这里的休眠是为了让=工作做一半，以后要测试同步就可以用这个方法
-		 */
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -299,8 +288,6 @@ class Info {
 			e.printStackTrace();
 		}
 		this.name=name;
-		flag=false;
-		super.notify();
 	}
 	String getName()
 	{
@@ -315,14 +302,6 @@ class Info {
 	 * 拿了分别的一半！！
 	 */
 	synchronized void get() {
-		if(flag){
-			try {
-				super.wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -330,8 +309,7 @@ class Info {
 			e.printStackTrace();
 		}
 		System.out.println(this.getAge()+"<--->"+this.getName());
-		flag=true;
-		super.notify();
+		
 	}
 	static class producer implements Runnable{
 		Info info=null;
@@ -352,7 +330,9 @@ class Info {
 						flag=true;
 					}
 					
-				}	
+				}
+			
+			
 		}
 	}
 	static class customer implements Runnable{

@@ -299,7 +299,7 @@ class Info {
 			e.printStackTrace();
 		}
 		this.name=name;
-		flag=false;
+		flag=true;
 		super.notify();
 	}
 	String getName()
