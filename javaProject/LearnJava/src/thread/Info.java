@@ -279,10 +279,13 @@ class Info {
 	private String name="";
 	private int age=0;
 	private boolean flag=true;
+	/*
+	 * flag 为真时表示可以生产
+	 */
 	synchronized void set (String name,int age) {
 		if (!flag){
 			try {
-				super.wait();
+				super.wait();//super 表示拥有Info资源的线程
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -290,7 +293,7 @@ class Info {
 		}
 		this.age=age;
 		/*
-		 * 这里的休眠是为了让=工作做一半，以后要测试同步就可以用这个方法
+		 * 这里的休眠是为了让工作做一半，以后要测试同步就可以用这个方法
 		 */
 		try {
 			Thread.sleep(100);
@@ -300,7 +303,7 @@ class Info {
 		}
 		this.name=name;
 		flag=false;
-		super.notify();
+		super.notify();//唤醒的是所有因为Info资源而阻塞的其中任意一個進程
 	}
 	String getName()
 	{
@@ -341,18 +344,18 @@ class Info {
 		}
 		public void run(){
 			boolean flag=true;
-	
-				for(int i=1;i<=100;i++){
-					if(flag){
-						this.info.set("hj", 100);
-						flag=false;
-					}else
-					{
-						this.info.set("jy", 20);
-						flag=true;
-					}
-					
-				}	
+
+			for(int i=1;i<=100;i++){
+				if(flag){
+					this.info.set("hj", 100);
+					flag=false;
+				}else
+				{
+					this.info.set("jy", 20);
+					flag=true;
+				}
+
+			}	
 		}
 	}
 	static class customer implements Runnable{
@@ -363,7 +366,7 @@ class Info {
 		}
 		public void run(){
 			for(int i=1;i<=100;i++){	
-			this.info.get();
+				this.info.get();
 			}
 		}
 	}
