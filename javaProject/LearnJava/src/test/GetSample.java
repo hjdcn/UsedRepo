@@ -14,6 +14,7 @@ public class GetSample {
 		// 使用系统提供的默认的恢复策略
 		getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
 				new DefaultHttpMethodRetryHandler());
+		System.out.println("hj test DB");
 		try {
 			// 执行getMethod
 			int statusCode = httpClient.executeMethod(getMethod);
