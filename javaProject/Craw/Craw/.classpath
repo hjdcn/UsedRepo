@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/commons-httpclient-3.1-rc1.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/gdata-core-1.0.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/httpclient-4.1.3.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/httpclient-cache-4.1.3.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/httpcore-4.1.4.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/httpmime-4.1.3.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/mongo-2.10.1.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/oauth-1.3.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/org.apache.httpcomponents.httpclient_4.1.3.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/org.json-20120521.jar"/>
+	<classpathentry kind="lib" path="E:/快盘/CrawlerProject/CrawlerProject/lib/sqljdbc4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
