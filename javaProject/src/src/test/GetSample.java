@@ -9,6 +9,7 @@ public class GetSample {
 	public static void main(String[] args) {
 		// 构造HttpClient的实例
 		HttpClient httpClient = new HttpClient();
+		System.out.println("jy coming");
 		// 创建GET方法的实例
 		GetMethod getMethod = new GetMethod("http://www.ibm.com");
 		// 使用系统提供的默认的恢复策略
