@@ -376,6 +376,8 @@ class Info {
 		customer c= new customer(t);
 		new Thread(p,"a").start();
 		new Thread(c,"b").start();
+		test2 te=new test2();
+		
 	}
 }
 

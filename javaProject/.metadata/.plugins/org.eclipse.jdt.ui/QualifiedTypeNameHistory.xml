@@ -2,4 +2,14 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="org.apache.http.client.HttpClient"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.HttpClient"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.methods.GetMethod"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.params.HttpMethodParams"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.Header"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.UsernamePasswordCredentials"/>
+<fullyQualifiedTypeName name="org.apache.commons.httpclient.auth.AuthScope"/>
 </qualifiedTypeNameHistroy>

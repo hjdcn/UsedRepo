@@ -51,13 +51,13 @@ public class SinaWeiboAutoLogin {
 	private String su;
 
 	/**
-	 * Ê¹ÓÃHttpClient4ÊµÏÖ×Ô¶¯Î¢²©µÇÂ½
+	 * ä½¿ç”¨HttpClient4å®ç°è‡ªåŠ¨å¾®åšç™»é™†
 	 * 
 	 * @param username
-	 *            µÇÂ¼ÕËºÅ
+	 *            ç™»å½•è´¦å·
 	 * @param password
-	 *            µÇÂ¼ÃÜÂë
-	 * @return cookie µÇÂ½ºó·µ»ØµÄcookie
+	 *            ç™»å½•å¯†ç 
+	 * @return cookie ç™»é™†åè¿”å›çš„cookie
 	 */
 	public String getLoginCookie(String username, String password)
 			throws IOException, JSONException, IllegalBlockSizeException,
@@ -74,7 +74,7 @@ public class SinaWeiboAutoLogin {
 		su = encodeUserName(username);
 		String url = login(client);
 		if (url.equals("-1")) {
-			System.out.println("µÇÂ¼Ê§°Ü£¡");
+			System.out.println("ç™»å½•å¤±è´¥ï¼");
 			return "";
 		} else {
 			HttpGet getMethod = new HttpGet(url);
@@ -93,6 +93,9 @@ public class SinaWeiboAutoLogin {
 		return cookie;
 	}
 
+	/*
+	 * è·å–ç™»å½•å‚æ•°
+	 */
 	private void getParam(DefaultHttpClient client) throws IOException,
 			JSONException {
 		String preloginurl = "http://login.sina.com.cn/sso/prelogin.php?entry=sso&"
@@ -118,32 +121,45 @@ public class SinaWeiboAutoLogin {
 		return String.valueOf(new Date().getTime() / 1000);
 	}
 
+	/*
+	 * æ¨¡æ‹ŸåŠ å¯†è¿‡ç¨‹
+	 *   username ç»è¿‡äº†BASE64 è®¡ç®—ï¼š username = base64.encodestring( urllib.quote(username) )[:-1];
+         password ç»è¿‡äº†ä¸‰æ¬¡SHA1 åŠ å¯†ï¼Œ ä¸”å…¶ä¸­åŠ å…¥äº† servertime å’Œ nonce çš„å€¼æ¥å¹²æ‰°ã€‚
+                       å³ï¼š ä¸¤æ¬¡SHA1åŠ å¯†åï¼Œ å°†ç»“æœåŠ ä¸Š servertime å’Œ nonce çš„å€¼ï¼Œ å†SHA1 ç®—ä¸€æ¬¡ã€‚
+	 */
 	private String rsaCrypt(String modeHex, String exponentHex,
 			String password, long serverTime, String nonce)
 			throws IllegalBlockSizeException, BadPaddingException,
 			NoSuchAlgorithmException, InvalidKeySpecException,
 			NoSuchPaddingException, InvalidKeyException,
 			UnsupportedEncodingException {
-		KeyFactory factory = KeyFactory.getInstance("RSA"); //·µ»Ø×ª»»Ö¸¶¨Ëã·¨µÄ public/private ¹Ø¼ü×ÖµÄ KeyFactory ¶ÔÏó
-		BigInteger m = new BigInteger(modeHex, 16); /* public exponent */   //°Ñ16½øÖÆ×ª»»Îª10½øÖÆ
-		BigInteger e = new BigInteger(exponentHex, 16); /* modulus */
-		RSAPublicKeySpec spec = new RSAPublicKeySpec(m, e);  //´ËÀàÖ¸¶¨ RSA ¹«ÓÃÃÜÔ¿,´´½¨Ò»¸öĞÂµÄ RSAPublicKeySpec¡£
-		RSAPublicKey pub = (RSAPublicKey) factory.generatePublic(spec);  //¸ù¾İÌá¹©µÄÃÜÔ¿¹æ·¶£¨ÃÜÔ¿²ÄÁÏ£©Éú³É¹«Ô¿¶ÔÏó¡£
-		Cipher enc = Cipher.getInstance("RSA");  //´ËÀàÎª¼ÓÃÜºÍ½âÃÜÌá¹©ÃÜÂë¹¦ÄÜ
-		enc.init(Cipher.ENCRYPT_MODE, pub); // ÓÃÃÜÔ¿³õÊ¼»¯´Ë Cipher
-		//Cipher.ENCRYPT_MODE ÓÃÓÚ½« Cipher ³õÊ¼»¯Îª¼ÓÃÜÄ£Ê½µÄ³£Á¿¡£
+		KeyFactory factory = KeyFactory.getInstance("RSA"); //è¿”å›è½¬æ¢æŒ‡å®šç®—æ³•çš„ public/private å…³é”®å­—çš„ KeyFactory å¯¹è±¡
+		BigInteger m = new BigInteger(modeHex, 16); /* public exponent */   //æŠŠ16è¿›åˆ¶è½¬æ¢ä¸º10è¿›åˆ¶ pubkey
+		BigInteger e = new BigInteger(exponentHex, 16); /* modulus */                       //password
+		RSAPublicKeySpec spec = new RSAPublicKeySpec(m, e);  //æ­¤ç±»æŒ‡å®š RSA å…¬ç”¨å¯†é’¥,åˆ›å»ºä¸€ä¸ªæ–°çš„ RSAPublicKeySpecã€‚
+		RSAPublicKey pub = (RSAPublicKey) factory.generatePublic(spec);  //æ ¹æ®æä¾›çš„å¯†é’¥è§„èŒƒï¼ˆå¯†é’¥ææ–™ï¼‰ç”Ÿæˆå…¬é’¥å¯¹è±¡ã€‚
+		//http://blog.csdn.net/wuwenlong527/article/details/2037931 ä»‹ç»cipher
+		Cipher enc = Cipher.getInstance("RSA");  //æ­¤ç±»ä¸ºåŠ å¯†å’Œè§£å¯†æä¾›å¯†ç åŠŸèƒ½
+		enc.init(Cipher.ENCRYPT_MODE, pub); // ç”¨å¯†é’¥åˆå§‹åŒ–æ­¤ Cipher
+		//Cipher.ENCRYPT_MODE ç”¨äºå°† Cipher åˆå§‹åŒ–ä¸ºåŠ å¯†æ¨¡å¼çš„å¸¸é‡ã€‚
 		String confusrPassword = serverTime + "\t" + nonce + "\n" + password;
-		byte[] encryptedContentKey = enc.doFinal(confusrPassword
-				.getBytes("GB2312")); //½âÃÜÊı¾İ
-		String encodeString = new String(Hex.encodeHex(encryptedContentKey)); //°Ñ¼ÓÃÜºóµÄÊı¾İ×ª»»Îª16½øÖÆ
+		byte[] encryptedContentKey = enc.doFinal(confusrPassword.getBytes("GB2312")); //åŠ å¯†æ•°æ®
+		String encodeString = new String(Hex.encodeHex(encryptedContentKey)); //æŠŠåŠ å¯†åçš„æ•°æ®è½¬æ¢ä¸º16è¿›åˆ¶
 		return encodeString;
 	}
 
+	/*
+	 * å°†åå­—ç”¨basde64ç¼–ç 
+	 */
+	
 	private String encodeUserName(String username) {
 		username = username.replaceFirst("@", "%40");
 		return Base64.encodeBase64String(username.getBytes());
 	}
 
+	/*
+	 * postå¤´éƒ¨å¾—åˆ°æ­£å¼ç™»å½•çš„URL
+	 */
 	private String login(DefaultHttpClient client)
 			throws UnsupportedEncodingException, IOException {
 		HttpPost post = new HttpPost(

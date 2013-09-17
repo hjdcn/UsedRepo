@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<project name="weibo4j" default="all" basedir=".">
+	<tstamp>  
+        <format property="now.date" pattern="yyyy-MM-dd" locale="zh" />  
+    </tstamp> 
+    
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="lib.dir" value="${basedir}/lib"/>
+	<property name="web.dir" value="${basedir}/web"/>
+	<property name="dest.dir" value="${basedir}/dest"/>
+	<property name="jar.name" value="weibo4j-${now.date}.zip"/>
+	
+	
+	<target name="clean" description="Cleans up all build-generated output">
+		<delete dir="${dest.dir}" failonerror="false"/>
+	</target>
+	
+	<target name="jar">
+		<!-- archive communicate.jar -->
+		<mkdir dir="${dest.dir}"/>
+		<mkdir dir="${dest.dir}/bin"/>
+		<copy todir="${dest.dir}">
+			<fileset dir="${basedir}" includes="lib/*.*,.settings/*.*,web/*.*,.classpath,.project,License,readme.txt" />
+			<fileset dir="${basedir}" includes="src/**" excludes="src/**/*.svn" />
+		</copy>
+		<jar jarfile="${basedir}/${jar.name}" index="true">
+			<fileset dir="${dest.dir}" includes="**/*.*" />
+		</jar>		
+	</target>
+	
+	<target name="all" depends="jar,clean" />
+
+</project>
